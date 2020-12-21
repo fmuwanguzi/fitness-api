@@ -18,6 +18,10 @@ const planSchema = new mongoose.Schema({
     description: {
         type: String,
         required: true
+    },
+    time : { 
+        type : Date, 
+        default: Date.now 
     }
 })
 

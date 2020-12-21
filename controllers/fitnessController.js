@@ -27,9 +27,7 @@ router.get('/', (req, res) => {
         
         models.Fitness.update({
           _id: req.params.id
-        }, {$set: 
-            {
-            level
+        }, {$set: {level
         }})
         .then((fitness) => {
           res.status(201).json({ fitness })
