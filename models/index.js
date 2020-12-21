@@ -1,10 +1,17 @@
 const mongoose = require('mongoose')
 
-mongoose.connect(process.env.MONGO_URI + '/fitness', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-
-module.exports = {
-  Fitness: require('./Fitness'),
+const connectDB = async () =>{
+    try{
+        const conn = await mongoose.connect(process.env.MONGO_URI,'/fitness',{
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useFindAndModify: true
+        })
+        console.log(`MongoDb Connected : ${conn.connection.host}`);
+    } catch (err){
+        console.log(err);
+        process.exit(1)
+    }
 }
+
+module.exports = connectDB
