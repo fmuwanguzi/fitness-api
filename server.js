@@ -14,7 +14,7 @@ connectDB()
 const models = require('./models')
 
 app.get('/', (req, res) => {
-  res.send('Hello from the your fitness api')
+  res.send('Hello from your fitness api')
 })
 
 app.use('/bounties', require('./controllers/fitnessController'))
