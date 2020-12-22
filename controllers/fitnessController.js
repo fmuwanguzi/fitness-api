@@ -24,16 +24,33 @@ router.get('/', (req, res) => {
       
     router.post('/', (req, res) => {
         console.log(req.body);
-        const workout = {
+        // const workout = {
+        //     workoutName: req.body.workout.workoutName,
+        //     bodypart: req.body.workout.bodypart,
+        //     level: req.body.workout.level,
+        //     reps : req.body.workout.reps,
+        //     sets : req.body.workout.sets,
+        //     image : req.body.workout.image,
+        //     description : req.body.workout.description
+        // }
+        // const food = {}
+
+        const plan = new Fitness({
+            goal: req.body.goal
+          })
+          const workout = {
             workoutName: req.body.workout.workoutName,
             bodypart: req.body.workout.bodypart,
             level: req.body.workout.level,
-            reps : req.body.workout.reps,
-            sets : req.body.workout.sets,
-            image : req.body.workout.image,
-            description : req.body.workout.description
-        }
-        const food = {}
+            reps: req.body.workout.reps,
+            sets: req.body.workout.sets,
+            image: req.body.workout.image,
+            description: req.body.workout.description
+          }
+          const food= {}
+          plan.workout.push(workout)
+          plan.food.push(food)
+          plan.save()
         
         const fitness = {
             workout : [workout],
@@ -41,7 +58,7 @@ router.get('/', (req, res) => {
             goal: req.body.goal
         }
         Fitness.create({ //$push is used because they are arrays 
-            goal: req.body.goal, $push:{workout: workout }, $push:{food: food} 
+            fitness : {goal: req.body.goal, $push:{workout: workout }, $push:{food: food} }
         })
             
             .then((fitness) => {
