@@ -5,6 +5,7 @@ const cors = require('cors')
 // require connection function
 const connectDB = require('./models/index')
 
+
 app.use(cors({ origin: '*' }))
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json())

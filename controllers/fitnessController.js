@@ -2,14 +2,20 @@ const router = require('express').Router()
 
 const models = require('../models')
 
+console.log('-----THIS IS MODELS----',models);
+
+const Fitness = require('../models/Fitness');
+
+console.log('---This is fitness---', Fitness)
+
 router.get('/', (req, res) => {
-    models.Fitness.find().then((userFitness) => {
+    Fitness.find().then((userFitness) => {
       res.status(200).json({ fitness: userFitness })
     })
     .catch((error) => res.send({ error }))})
 
     router.get('/:id', (req, res) => {
-        models.Fitness.findOne({_id: req.params.id}).then((fitness) => {
+        Fitness.findOne({_id: req.params.id}).then((fitness) => {
           res.status(200).json({ fitness })
         })
         .catch((error) => res.send({ error }))
@@ -34,7 +40,10 @@ router.get('/', (req, res) => {
             food : [food],
             goal: req.body.goal
         }
-        models.Fitness.create({ fitness })
+        Fitness.create({ //$push is used because they are arrays 
+            goal: req.body.goal, $push:{workout: workout }, $push:{food: food} 
+        })
+            
             .then((fitness) => {
           res.status(201).json({ fitness })
         })
@@ -46,10 +55,9 @@ router.get('/', (req, res) => {
         
         const { level } = req.body
         
-        models.Fitness.update({
+        Fitness.update({
           _id: req.params.id
-        }, {$set: {level
-        }})
+        }, {$set: { level }})
         .then((fitness) => {
           res.status(201).json({ fitness })
         })
@@ -57,7 +65,7 @@ router.get('/', (req, res) => {
       })
       
       router.delete('/:id', (req, res) => {
-        models.Fitness.deleteOne({ _id: req.params.id })
+        Fitness.deleteOne({ _id: req.params.id })
         .then((fitness) => res.status(201).json({ fitness }))
         .catch((error) => res.send({ error }))
       })
