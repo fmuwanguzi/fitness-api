@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
   res.send('Hello from your fitness api')
 })
 
-app.use('/bounties', require('./controllers/fitnessController'))
+app.use('/fitness', require('./controllers/fitnessController'))
 
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {

@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
-const planSchema = new mongoose.Schema({
+const workoutSchema = new mongoose.Schema({
 
-    workout: String,
+    workoutName: String,
     bodypart: String,
     level: {
         type: String,
@@ -24,22 +24,22 @@ const planSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    time : { 
-        type : Date, 
-        default: Date.now 
-    }
+    // time : { 
+    //     type : Date, 
+    //     default: Date.now 
+    // }
 })
 
 //We will be using a third party api for this
-const nutrition = new mongoose.Schema({
+const nutritionSchema = new mongoose.Schema({
    placeholder: String 
 })
 
 
 const fitnessSchema = new mongoose.Schema({
 
-    plan: [planSchema],//workout 
-    food: [nutrition], //third party api , for food
+    workout: [workoutSchema],//workout 
+    food: [nutritionSchema], //third party api , for food
     goal: String  // user input 
 })
 
