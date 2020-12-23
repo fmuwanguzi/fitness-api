@@ -39,6 +39,7 @@ router.get('/', (req, res) => {
             goal: req.body.goal
           })
           const workout = {
+
             workoutName: req.body.workout.workoutName,
             bodypart: req.body.workout.bodypart,
             level: req.body.workout.level,
@@ -47,7 +48,7 @@ router.get('/', (req, res) => {
             image: req.body.workout.image,
             description: req.body.workout.description
           }
-          const food= {}
+          const food = {}
           plan.workout.push(workout)
           plan.food.push(food)
           plan.save()
@@ -57,7 +58,7 @@ router.get('/', (req, res) => {
             food : [food],
             goal: req.body.goal
         }
-        Fitness.create({ //$push is used because they are arrays 
+        Fitness.create({ //$push is used to add information to the embedded schemas //food will come from a third party api
             fitness : {goal: req.body.goal, $push:{workout: workout }, $push:{food: food} }
         })
             
@@ -68,11 +69,15 @@ router.get('/', (req, res) => {
       
       
       router.put('/:id', (req, res) => {
+
+        
+        // res.send('put request')
      
         
-        const { level } = req.body
+        const { level } = req.body.workout;
         
         Fitness.update({
+        //Fitness.findOneAndUpdate({
           _id: req.params.id
         }, {$set: { level }})
         .then((fitness) => {
@@ -80,6 +85,7 @@ router.get('/', (req, res) => {
         })
         .catch((error) => res.send({ error }))
       })
+     
       
       router.delete('/:id', (req, res) => {
         Fitness.deleteOne({ _id: req.params.id })

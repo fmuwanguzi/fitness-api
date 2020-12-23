@@ -9,5 +9,9 @@ Test every route.
 Routes to veiw the plans and workouts.
 Routes to pick the plans.
 
+Make a workout js
+and a food js
+
+
 
 

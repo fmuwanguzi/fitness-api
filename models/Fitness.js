@@ -24,6 +24,7 @@ const workoutSchema = new mongoose.Schema({
         type: String,
         required: true
     }
+    //goal: String
     // time : { 
     //     type : Date, 
     //     default: Date.now 
@@ -37,6 +38,10 @@ const nutritionSchema = new mongoose.Schema({
 
 
 const fitnessSchema = new mongoose.Schema({
+    // workout:[{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'workout'
+    // }]
 
     workout: [workoutSchema],//workout 
     food: [nutritionSchema], //third party api , for food
