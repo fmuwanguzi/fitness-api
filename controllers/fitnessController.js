@@ -1,13 +1,9 @@
 const router = require('express').Router()
-
 const models = require('../models')
-
-console.log('-----THIS IS MODELS----',models);
-
 const Fitness = require('../models/Fitness');
 
-console.log('---This is fitness---', Fitness)
-
+// desc 
+// router /fitness
 router.get('/', (req, res) => {
     Fitness.find().then((userFitness) => {
       res.status(200).json({ fitness: userFitness })
