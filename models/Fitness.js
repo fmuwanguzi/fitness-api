@@ -23,12 +23,12 @@ const workoutSchema = new mongoose.Schema({
     description: {
         type: String,
         required: true
-    }
+    },
     //goal: String
-    // time : { 
-    //     type : Date, 
-    //     default: Date.now 
-    // }
+    time : { 
+        type : Date, 
+        default: Date.now 
+    }
 })
 
 //We will be using a third party api for this

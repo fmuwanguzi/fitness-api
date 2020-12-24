@@ -72,14 +72,26 @@ router.get('/', (req, res) => {
 
         
         // res.send('put request')
-     
+        console.log('---this is put route---');
         
-        const { level } = req.body.workout;
+        const { level , bodypart } = req.body.workout[0];
+
+        //const { level } = req.body;
+        console.log('this is req params id', req.params.id)
         
-        Fitness.update({
+        
+        console.log('-----this is the level-----', req.body.workout[0].level )
+        Fitness.updateMany({
         //Fitness.findOneAndUpdate({
           _id: req.params.id
-        }, {$set: { level }})
+        }, {$set: 
+            //{ goal: level }
+            { 
+                'workout.0.level' : level
+                //'workout.0.bodypart' : bodypart,
+            },
+            
+        },{multi : true} )
         .then((fitness) => {
           res.status(201).json({ fitness })
         })
