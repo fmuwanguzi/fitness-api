@@ -83,8 +83,8 @@ router.get('/', (req, res) => {
         }, {$set: 
             //{ goal: level }
             { 
-                'workout.0.level' : level
-                //'workout.0.bodypart' : bodypart,
+                'workout.0.level' : level,
+                //'workout.0.bodypart' : bodypart
             },
             
         },{multi : true} )
