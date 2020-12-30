@@ -1,6 +1,9 @@
 const router = require('express').Router()
 const Workout = require('../models/Workout')
+const workoutScraper = require('../scrapers/workoutScraper')
 
+// desc retrieves all workout instances from the db
+// route GET /workouts/
 router.get('/', async (req,res)=>{
     try{
         const workouts = await Workout.find()
@@ -11,6 +14,8 @@ router.get('/', async (req,res)=>{
     }
 })
 
+// desc retrieves one workout instance from the db
+// route GET /workouts/
 router.get('/:name',async(req,res)=>{
     try{
         const food = await Food.findOne({name:req.params.name})
@@ -21,19 +26,11 @@ router.get('/:name',async(req,res)=>{
     }
 })
 
+// desc adds a new workout to the deb
+// route POST /workouts/
 router.post('/',(req,res)=>{
     const {name,bodypart,level,reps,sets,image,description} = req.body
     try{
-        // const newFood = new Food({
-        //     name: 'chicken',
-        //     difficulty : 'beginner'
-        // })
-        // const wings = {
-        //     ingredient: 'chicken',
-        //     quantity: 1,
-        //     unit: 'lbs'
-        // }
-        // newFood.ingredients.push(wings)
         const newWorkout = new Workout({
             name,
             bodypart,
@@ -43,8 +40,6 @@ router.post('/',(req,res)=>{
             image,
             description
         })
-        
-        
         newWorkout.save()
         res.status(200).json(newWorkout)
     }catch(err){
@@ -52,6 +47,9 @@ router.post('/',(req,res)=>{
         res.status(400)
     }
 })
+
+// desc retrieves all workout instances from the db
+// route PUT /workouts/
 router.put('/edit/:name',async (req,res)=>{
     console.log(req.params.name);
     console.log(req.body);
@@ -77,6 +75,9 @@ router.put('/edit/:name',async (req,res)=>{
         console.log(err);
     }
 })
+
+// desc retrieves all workout instances from the db
+// route DELETE /workouts/
 router.delete('/delete/:name', async (req,res)=>{
     try{
         await Workout.findOneAndDelete({

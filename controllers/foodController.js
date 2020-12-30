@@ -1,6 +1,9 @@
 const router = require('express').Router()
 const Food = require('../models/Food')
+const foodScraper = require('../scrapers/foodScraper')
 
+// desc get all the foods that are in the database
+// route GET /foods/
 router.get('/', async (req,res)=>{
     try{
         const foods = await Food.find()
@@ -12,6 +15,8 @@ router.get('/', async (req,res)=>{
     // res.send('connected to /foods')
 })
 
+// desc get back a specific food from db
+// route GET /foods/:name
 router.get('/:name',async(req,res)=>{
     try{
         const food = await Food.findOne({name:req.params.name})
@@ -22,23 +27,17 @@ router.get('/:name',async(req,res)=>{
     }
 })
 
-router.post('/',(req,res)=>{
+// desc add a new food to the database
+// route POST /foods/
+router.post('/', async (req,res)=>{
     try{
-        // const newFood = new Food({
-        //     name: 'chicken',
-        //     difficulty : 'beginner'
-        // })
-        // const wings = {
-        //     ingredient: 'chicken',
-        //     quantity: 1,
-        //     unit: 'lbs'
-        // }
-        // newFood.ingredients.push(wings)
+
+        const Url = `${req.body.food}`
+        const foodInfo = foodScraper(Url)
         const newFood = new Food({
             name: req.body.name,
             difficulty : req.body.difficulty
         })
-        
         req.body.ingredients.forEach(ingredient=>{
             const item = {
                 ingredient: ingredient.ingredient,
@@ -54,7 +53,10 @@ router.post('/',(req,res)=>{
         res.status(400)
     }
 })
-router.put('/edit/:name',async (req,res)=>{
+
+// desc update a given food
+// route PUT /foods/
+router.put('/', async (req,res)=>{
     console.log(req.params.name);
     console.log(req.body);
     const {ingredients, difficulty} = req.body

@@ -14,7 +14,7 @@ app.use(express.json())
 connectDB()
 
 app.get('/', (req, res) => {
-  res.send('Hello from your fitness api')
+  res.send('You are connected to GeneralFitAPI')
 })
 
 app.use('/fitness', require('./controllers/fitnessController'))

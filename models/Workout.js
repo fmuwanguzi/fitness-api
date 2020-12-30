@@ -18,14 +18,14 @@ const workoutSchema = new mongoose.Schema({
     },
     image:{
         type: String,
-        required: true
+        required: false
     },
     description: {
         type: String,
         required: true
     },
     //goal: String
-    time : { 
+    createdAt : { 
         type : Date, 
         default: Date.now 
     }
