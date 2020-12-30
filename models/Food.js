@@ -12,9 +12,9 @@ const foodSchema = new mongoose.Schema({
     difficulty: {
         type: String,
         default: 'beginner',
-        enum: ['beginner','intermediate','advanced']
-    }
-
+        enum: ['beginner','intermediate']
+    },
+    image : String
 })
 
 module.exports = mongoose.model('Food',foodSchema)
