@@ -31,23 +31,17 @@ router.get('/:name',async(req,res)=>{
 // route POST /foods/
 router.post('/', async (req,res)=>{
     try{
+        const url = `https://www.eatyourselfskinny.com/${req.body.food}`
+        const foodInfo = await foodScraper(url)
+        // const newFood = new Food({
+        //     name: req.body.food,
 
-        const Url = `${req.body.food}`
-        const foodInfo = foodScraper(Url)
-        const newFood = new Food({
-            name: req.body.name,
-            difficulty : req.body.difficulty
-        })
-        req.body.ingredients.forEach(ingredient=>{
-            const item = {
-                ingredient: ingredient.ingredient,
-                quantity: ingredient.quantity,
-                unit: ingredient.unit
-            }
-            newFood.ingredients.push(wings)
-        })
-        newFood.save()
-        res.status(200).json(newFood)
+        // })
+        const ingredients = foodInfo.ingredients
+        const directions = foodInfo.directions
+        const nutrition = foodInfo.nutrition
+        console.log(ingredients,directions,nutrition);
+        res.status(200).json()
     }catch(err){
         console.log(err);
         res.status(400)

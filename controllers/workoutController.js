@@ -28,20 +28,25 @@ router.get('/:name',async(req,res)=>{
 
 // desc adds a new workout to the deb
 // route POST /workouts/
-router.post('/',(req,res)=>{
-    const {name,bodypart,level,reps,sets,image,description} = req.body
+router.post('/', async (req,res)=>{
+    // const {name,bodypart,level,reps,sets,image,description} = req.body
     try{
-        const newWorkout = new Workout({
-            name,
-            bodypart,
-            level,
-            reps,
-            sets,
-            image,
-            description
-        })
-        newWorkout.save()
-        res.status(200).json(newWorkout)
+        // const newWorkout = new Workout({
+        //     name,
+        //     bodypart,
+        //     level,
+        //     reps,
+        //     sets,
+        //     image,
+        //     description
+        // })
+        // newWorkout.save()
+        const {bodyPart, article} = req.body
+        let url = `https://muscleandfitness.com/workouts/${bodyPart}/${article}/`
+        const info = await workoutScraper(url)
+        console.log(url);
+        // res.status(200).json(info)
+        // res.status(200).json(newWorkout)
     }catch(err){
         console.log(err);
         res.status(400)
