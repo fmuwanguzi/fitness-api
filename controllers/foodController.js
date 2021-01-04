@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const Food = require('../models/Food')
-const foodScraper = require('../scrapers/foodScraper')
 const request = require('request')
 const cheerio = require('cheerio')
 
