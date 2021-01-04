@@ -2,7 +2,7 @@ const router = require('express').Router();
 const models = require('../models');
 const multer = require('multer')
 const cloudinary = require('cloudinary')
-const upload = multer({dest:'./uploads'})
+const upload = require('../config/multer');
 const Workout = require('../models/Workout');
 require("dotenv").config();
 
