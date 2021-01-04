@@ -42,17 +42,54 @@ router.get('/food:name',async(req,res)=>{
 // route POST /foods/
 router.post('/', async (req,res)=>{
     try{
+        const steps = []
+        const ingredients = []
+        const facts = []  
+        let image  
         const url = `https://www.eatyourselfskinny.com/${req.body.food}`
-        const foodInfo = await foodScraper(url)
+        request(url, async (error,response,html)=>{
+            if (!error && response.statusCode === 200){
+                const $ = cheerio.load(html)
+                $('.tasty-recipe-ingredients li').each((i,el)=>{
+                    const ingredient = $(el).text()
+                    ingredients.push(ingredient)
+                })
+                $('.tasty-recipe-instructions li').each((i,el)=>{
+                    const step = $(el).text()
+                    steps.push(step)
+                })
+                $('.tasty-recipes-nutrition').each((i,el)=>{
+                    const fact = $(el).text().replace(/\t\t\t\t\t\t\t+/g,'')
+                    facts.push(fact)
+                })
+                $('.tasty-recipes-image img').each((i,el)=>{
+                    image = $(el).attr('src')
+                })
+
+                const food = await Food.findOne({name:req.body.food})
+                if (!food){
+                    const newFood = new Food({
+                        name:req.body.food,
+                        ingredients,
+                        instructions: steps,
+                        nutritionData:facts,
+                        image
+                    })
+                    newFood.save()
+                    res.status(200).json(newFood)
+                } else (
+                    res.status(200).json(food)
+                )
+            }
+        })
         // const newFood = new Food({
         //     name: req.body.food,
 
         // })
-        const ingredients = foodInfo.ingredients
-        const directions = foodInfo.directions
-        const nutrition = foodInfo.nutrition
-        console.log(ingredients,directions,nutrition);
-        res.status(200).json()
+        // const ingredients = foodInfo.ingredients
+        // const directions = foodInfo.directions
+        // const nutrition = foodInfo.nutrition
+        // console.log(ingredients,directions,nutrition);
     }catch(err){
         console.log(err);
         res.status(400)

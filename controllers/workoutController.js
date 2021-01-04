@@ -20,8 +20,7 @@ router.get('/bodypart/:name', async (req,res)=>{
     console.log('connected');
     try{
         const workouts = await Workout.find({bodypart:req.params.name})
-        console.log(workouts);
-        // res.status(200).json(workouts)
+        res.status(200).json(workouts)
     }catch(err){
 
     }
