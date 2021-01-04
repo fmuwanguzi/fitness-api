@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const models = require('../models');
-const cloudinary = require('../config/cloudinary');
+const cloudinary = require('cloudinary');
 const upload = require('../config/multer');
 const Workout = require('../models/Workout');
 require("dotenv").config();
@@ -9,8 +9,6 @@ require("dotenv").config();
 
 router.post('/', upload.single('image'), async (req , res) => {
     //console.log(cloudinary);
-    console.log(process.env.CLOUD_NAME);
-    console.log(process.env.MONGO_URI);
     try{
         //upload image to cloudinary
         const myWorkout = await cloudinary.uploader.upload(req.file.path);
