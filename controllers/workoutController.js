@@ -1,24 +1,27 @@
 const router = require('express').Router();
 const models = require('../models');
-const cloudinary = require('../config/cloudinary');
-const upload = require('../config/multer');
+const multer = require('multer')
+const cloudinary = require('cloudinary')
+const upload = multer({dest:'./uploads'})
 const Workout = require('../models/Workout');
 require("dotenv").config();
+
+
 
 //Post route to send images to cloudinary
 
 router.post('/', upload.single('image'), async (req , res) => {
     //console.log(cloudinary);
-    console.log(process.env.CLOUD_NAME);
+    
     console.log(process.env.MONGO_URI);
     try{
         //upload image to cloudinary
-        const myWorkout = await cloudinary.uploader.upload(req.file.path);
+        const result = await cloudinary.uploader.upload(req.file.path);
         //creating a new image which is an object can be whatever your models is 
         const workout = new Workout({
             name: req.body.name,
-            picture: myWorkout.secure_url,
-            cloudinary_id: myWorkout.public_id,
+            picture: result.secure_url,
+            cloudinary_id: result.public_id,
             bodypart: req.body.bodypart,
             sets: req.body.sets,
             reps: req.body.reps,
