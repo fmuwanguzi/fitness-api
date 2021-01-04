@@ -1,19 +1,23 @@
 const mongoose = require('mongoose')
 
-const ingredientSchema = new mongoose.Schema({
-    ingredient: String,
-    quantity: Number,
-    unit: String
-})
+// const ingredientSchema = new mongoose.Schema({
+//     ingredient: String,
+//     quantity: String,
+//     unit: String
+// })
+
+// const nutritionItemSchema = new mongoose.Schema({
+//     facts: String,
+//     quantity: String,
+//     unit: String
+
+// })
 
 const foodSchema = new mongoose.Schema({
     name: String,
-    ingredients: [ingredientSchema],
-    difficulty: {
-        type: String,
-        default: 'beginner',
-        enum: ['beginner','intermediate']
-    },
+    ingredients: [String],
+    instructions : [String],
+    nutritionData: [String],
     image : String
 })
 
