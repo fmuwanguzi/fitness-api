@@ -1,18 +1,10 @@
-const router = require('express').Router()
-const Workout = require('../models/Workout')
-const workoutScraper = require('../scrapers/workoutScraper')
+const router = require('express').Router();
+const models = require('../models');
+const cloudinary = require('../config/cloudinary');
+const upload = require('../config/multer');
+const Workout = require('../models/Workout');
+require("dotenv").config();
 
-// desc retrieves all workout instances from the db
-// route GET /workouts/
-router.get('/', async (req,res)=>{
-    try{
-        const workouts = await Workout.find()
-        res.status(200).json(workouts)
-    }catch(err){
-        console.log(err);
-        res.status(400)
-    }
-})
 
 // desc
 // route GET /workouts/bodypart:name
@@ -35,8 +27,10 @@ router.get('/specworkout/:id',async(req,res)=>{
     }catch(err){
         console.log(err);
         res.status(400)
+
     }
-})
+});
+
 
 // desc adds a new workout to the deb
 // route POST /workouts/
@@ -62,52 +56,13 @@ router.post('/', async (req,res)=>{
     }catch(err){
         console.log(err);
         res.status(400)
+
     }
-})
-
-// desc retrieves all workout instances from the db
-// route PUT /workouts/
-router.put('/edit/:name',async (req,res)=>{
-    console.log(req.params.name);
-    console.log(req.body);
-    const {name,bodypart,level,reps,sets,image,description} = req.body
-    try{
-        //this is copied from foods, but if, else if statements can be made for each param 
-
-        // if (difficulty){
-        //     const workout = await Workout.findOneAndUpdate({
-        //         name: req.params.name
-        //     },{$set : {difficulty:difficulty}}).then(workout=>{
-        //         res.send(workout)
-        //     })
-        // } 
-        // else if(){
-        //     // function needed to take each ingredient test against ingredient in array then $set change
-        // }else if(){
-        //     console.log('');
-        // }else{}
+});
 
 
-    }catch(err){
-        console.log(err);
-    }
-})
 
-// desc retrieves all workout instances from the db
-// route DELETE /workouts/
-router.delete('/delete/:name', async (req,res)=>{
-    try{
-        await Workout.findOneAndDelete({
-            name: req.params.name
-        }).then(workout=>{
-            res.send(workout)
-        })
 
-        // res.status(204).json('completed')
-    }catch(err){
-        console.log(err);
-        res.status(400)
-    }
-})
 
-module.exports = router
+module.exports = router; 
+
