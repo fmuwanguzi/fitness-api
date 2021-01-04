@@ -1,6 +1,17 @@
 const router = require('express').Router()
 const Food = require('../models/Food')
 const foodScraper = require('../scrapers/foodScraper')
+const request = require('request')
+const cheerio = require('cheerio')
+
+router.get('/test', async (req,res)=>{
+    request('https://www.eatyourselfskinny.com/cranberry-cocktail-meatballs/',(error,response,html)=>{
+        if (!error && response.statusCode === 200){
+            const $ = cheerio.load(html);
+            const list = $('')
+        }
+    })
+})
 
 // desc get all the foods that are in the database
 // route GET /foods/
@@ -17,7 +28,7 @@ router.get('/', async (req,res)=>{
 
 // desc get back a specific food from db
 // route GET /foods/:name
-router.get('/:name',async(req,res)=>{
+router.get('/food:name',async(req,res)=>{
     try{
         const food = await Food.findOne({name:req.params.name})
         res.status(200).json(food)

@@ -14,12 +14,25 @@ router.get('/', async (req,res)=>{
     }
 })
 
+// desc
+// route GET /workouts/bodypart:name
+router.get('/bodypart/:name', async (req,res)=>{
+    console.log('connected');
+    try{
+        const workouts = await Workout.find({bodypart:req.params.name})
+        console.log(workouts);
+        // res.status(200).json(workouts)
+    }catch(err){
+
+    }
+})
+
 // desc retrieves one workout instance from the db
 // route GET /workouts/
-router.get('/:name',async(req,res)=>{
+router.get('/specworkout/:id',async(req,res)=>{
     try{
-        const food = await Food.findOne({name:req.params.name})
-        res.status(200).json(food)
+        const workout = await Workout.findOne({_id:req.params.id})
+        res.status(200).json(workout)
     }catch(err){
         console.log(err);
         res.status(400)
