@@ -50,6 +50,7 @@ router.get('/category:category', async (req,res)=>{
 // desc add a new food to the database
 // route POST /foods/
 router.post('/', async (req,res)=>{
+    console.log(req.body);
     try{
         const steps = []
         const ingredients = []
@@ -112,13 +113,6 @@ router.put('/', async (req,res)=>{
                 res.send(food)
             })
         } 
-        // else if(){
-        //     // function needed to take each ingredient test against ingredient in array then $set change
-        // }else if(){
-        //     console.log('');
-        // }else{}
-
-
     }catch(err){
         console.log(err);
     }
