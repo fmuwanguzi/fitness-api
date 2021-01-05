@@ -28,13 +28,22 @@ router.get('/', async (req,res)=>{
 
 // desc get back a specific food from db
 // route GET /foods/:name
-router.get('/:name',async(req,res)=>{
+router.get('/food:name',async(req,res)=>{
     try{
         const food = await Food.findOne({name:req.params.name})
         res.status(200).json(food)
     }catch(err){
         console.log(err);
         res.status(400)
+    }
+})
+
+router.get('/category:category', async (req,res)=>{
+    try{
+        const category = await Food.find({category:req.params.category})
+        res.status(200).json(category)
+    }catch(err){
+
     }
 })
 
