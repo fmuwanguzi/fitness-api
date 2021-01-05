@@ -112,8 +112,9 @@ router.put('/', async (req,res)=>{
             },{$set : {difficulty:difficulty}}).then(food=>{
                 res.send(food)
             })
-        } 
-    }catch(err){
+        }
+      }catch(err){
+
         console.log(err);
     }
 })
