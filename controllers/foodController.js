@@ -11,6 +11,8 @@ router.get('/test', async (req,res)=>{
         }
     })
 })
+
+
 // desc get all the foods that are in the database
 // route GET /foods/
 router.get('/', async (req,res)=>{
@@ -35,6 +37,10 @@ router.get('/food:name',async(req,res)=>{
     }
 })
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 80f3794212bd5ae63955679e7a372ab289f0d253
 router.get('/category:category', async (req,res)=>{
     try{
         const category = await Food.find({category:req.params.category})
@@ -47,6 +53,7 @@ router.get('/category:category', async (req,res)=>{
 // desc add a new food to the database
 // route POST /foods/
 router.post('/', async (req,res)=>{
+    console.log(req.body);
     try{
         const steps = []
         const ingredients = []
@@ -71,6 +78,7 @@ router.post('/', async (req,res)=>{
                 $('.tasty-recipes-image img').each((i,el)=>{
                     image = $(el).attr('src')
                 })
+
                 const food = await Food.findOne({name:req.body.food})
                 if (!food){
                     const newFood = new Food({
@@ -93,6 +101,7 @@ router.post('/', async (req,res)=>{
         res.status(400)
     }
 })
+
 // desc update a given food
 // route PUT /foods/
 router.put('/', async (req,res)=>{
@@ -107,8 +116,12 @@ router.put('/', async (req,res)=>{
                 res.send(food)
             })
         } 
+<<<<<<< HEAD
        
     }catch(err){
+=======
+      }catch(err){
+>>>>>>> 80f3794212bd5ae63955679e7a372ab289f0d253
         console.log(err);
     }
 })

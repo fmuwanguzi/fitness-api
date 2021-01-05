@@ -128,10 +128,10 @@ router.put('/:id', upload.single('image'), async (req, res ) => {
         });
         res.json(workout);
 
-    }catch(error){
+      }catch(error){
         console.log(error)
-    }
-})
+      }
+  })
 
 //PUT route for changing workout using name
 
