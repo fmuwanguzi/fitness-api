@@ -17,7 +17,7 @@ router.post('/', upload.single('image'), async (req , res) => {
             name: req.body.name,
             picture: myWorkout.secure_url,
             cloudinary_id: myWorkout.public_id,
-            bodypart: req.body.bodypart,
+            category: req.body.category,
             sets: req.body.sets,
             reps: req.body.reps,
             description: req.body.description 
@@ -50,6 +50,18 @@ router.get('/:id', async (req, res) => {
         console.log(error);
     }
 });
+
+//get each workout by catergory
+router.get('/category/:name', async (req, res) => {
+    //console.log(req.body.category)
+    try{
+        const category = await Workout.find({category: req.params.name})
+        res.status(200).json(category)
+    }catch(error){
+        console.log(error);
+        res.status(400)
+    }
+})
 
 
 //Get each workout by name
@@ -106,7 +118,7 @@ router.put('/:id', upload.single('image'), async (req, res ) => {
             name: req.body.name || workout.name,
             picture: myWorkout.secure_url || workout.picture,
             cloudinary_id: myWorkout.public_id || workout.cloudinary_id,
-            bodypart: req.body.bodypart || workout.bodypart,
+            category: req.body.category || workout.category,
             sets: req.body.sets || workout.sets,
             reps: req.body.reps || workout.reps,
             description: req.body.description || workout.description  
@@ -134,7 +146,7 @@ router.put('/:id', upload.single('image'), async (req, res ) => {
 //             name: req.body.name || workout.name,
 //             picture: myWorkout.secure_url || workout.picture,
 //             cloudinary_id: myWorkout.public_id || workout.cloudinary_id,
-                // bodypart: req.body.bodypart || workout.bodypart,
+                // category: req.body.category || workout.category,
                 // sets: req.body.sets || workout.sets,
                 // reps: req.body.reps || workout.reps,
                 // description: req.body.description || workout.description
