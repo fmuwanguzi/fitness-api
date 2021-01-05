@@ -34,6 +34,16 @@ router.get('/food:name',async(req,res)=>{
         res.status(400)
     }
 })
+
+router.get('/category:category', async (req,res)=>{
+    try{
+        const category = await Food.find({category:req.params.category})
+        res.status(200).json(category)
+    }catch(err){
+
+    }
+})
+
 // desc add a new food to the database
 // route POST /foods/
 router.post('/', async (req,res)=>{
@@ -68,6 +78,7 @@ router.post('/', async (req,res)=>{
                         ingredients,
                         instructions: steps,
                         nutritionData:facts,
+                        category: req.body.category,
                         image
                     })
                     newFood.save()
@@ -77,13 +88,6 @@ router.post('/', async (req,res)=>{
                 )
             }
         })
-        // const newFood = new Food({
-        //     name: req.body.food,
-        // })
-        // const ingredients = foodInfo.ingredients
-        // const directions = foodInfo.directions
-        // const nutrition = foodInfo.nutrition
-        // console.log(ingredients,directions,nutrition);
     }catch(err){
         console.log(err);
         res.status(400)
@@ -103,11 +107,7 @@ router.put('/', async (req,res)=>{
                 res.send(food)
             })
         } 
-        // else if(){
-        //     // function needed to take each ingredient test against ingredient in array then $set change
-        // }else if(){
-        //     console.log('');
-        // }else{}
+       
     }catch(err){
         console.log(err);
     }

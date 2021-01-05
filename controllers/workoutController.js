@@ -53,7 +53,7 @@ router.get('/:id', async (req, res) => {
 
 //get each workout by catergory
 router.get('/category/:name', async (req, res) => {
-    //console.log(req.body.category)
+    console.log(req.body.category)
     try{
         const category = await Workout.find({category: req.params.name})
         res.status(200).json(category)
