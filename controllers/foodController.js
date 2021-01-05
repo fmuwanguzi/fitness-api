@@ -25,7 +25,6 @@ router.get('/', async (req,res)=>{
     }
     // res.send('connected to /foods')
 })
-
 // desc get back a specific food from db
 // route GET /foods/:name
 router.get('/food:name',async(req,res)=>{
@@ -37,6 +36,7 @@ router.get('/food:name',async(req,res)=>{
         res.status(400)
     }
 })
+
 
 router.get('/category:category', async (req,res)=>{
     try{
@@ -113,7 +113,7 @@ router.put('/', async (req,res)=>{
                 res.send(food)
             })
         } 
-    }catch(err){
+      }catch(err){
         console.log(err);
     }
 })
@@ -124,12 +124,10 @@ router.delete('/delete/:name', async (req,res)=>{
         }).then(food=>{
             res.send(food)
         })
-
         // res.status(204).json('completed')
     }catch(err){
         console.log(err);
         res.status(400)
     }
 })
-
 module.exports = router
